@@ -147,7 +147,6 @@ fun Kanban(
             modifier = Modifier
               .fillMaxHeight()
 
-              .testTag("todo_column")
               .weight(1f)
 
               .clip(RoundedCornerShape(8.dp))
@@ -164,7 +163,7 @@ fun Kanban(
               horizontalAlignment = Alignment.CenterHorizontally
             ) {
               Text(
-                "TODO",
+                "TO DO",
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(start = 4.dp)
               )
@@ -190,6 +189,7 @@ fun Kanban(
                   Row(
                     Modifier
                       .fillMaxWidth()
+                      .testTag("todo_column_${it.title}")
                       .padding(4.dp),
                     horizontalArrangement = Arrangement.Center
                   ) {
@@ -279,6 +279,8 @@ fun Kanban(
                   Row(
                     Modifier
                       .fillMaxWidth()
+
+                      .testTag("doing_column_${it.title}")
                       .padding(4.dp),
                     horizontalArrangement = Arrangement.Center
                   ) {
@@ -375,6 +377,7 @@ fun Kanban(
                   Row(
                     Modifier
                       .fillMaxWidth()
+                      .testTag("done_column_${it.title}")
                       .padding(4.dp),
                     horizontalArrangement = Arrangement.Center
                   ) {

@@ -177,7 +177,7 @@ fun Cadastrar(onBackToHome: () -> Unit, onSaveTask: (String) -> Unit) {
                 .padding(8.dp)
             ) {
               Text(
-                "Mensagem de erro: ",
+                "Mensagem de erro:",
                 color = MaterialTheme.colorScheme.background,
                 fontWeight = FontWeight.SemiBold,
                 lineHeight = 16.sp
