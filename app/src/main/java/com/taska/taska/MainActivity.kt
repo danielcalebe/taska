@@ -1,6 +1,7 @@
 package com.taska.taska
 
 import android.os.Bundle
+import android.os.Environment
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -19,6 +20,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import java.util.UUID
 import androidx.core.content.edit
+import java.io.File
 
 @Serializable
 data class Task(
@@ -70,7 +72,10 @@ class MainActivity : ComponentActivity() {
                 Home(
                   cadastrar = { navController.navigate("cadastrar") },
                   verKanban = { navController.navigate("kanban") },
-                  gerarRelatorio = {}
+                  gerarRelatorio = {
+
+                    val retorno = gerarRelatorio(getTasks());
+                    Toast.makeText(ctx, "Relatório gerado salvo em Downloads/$retorno", Toast.LENGTH_SHORT ).show()}
                 )
               }
 
@@ -137,4 +142,28 @@ class MainActivity : ComponentActivity() {
       }
     }
   }
+}
+
+fun gerarRelatorio(task: List<Task>): String {
+  val todo = task.filter { it.status == "todo" }
+  val doing = task.filter { it.status == "doing" }
+  val done = task.filter { it.status == "done" }
+
+  val string = """
+To do 
+${todo.joinToString("\n") { "  -${it.title}" }}
+   
+Doing 
+${doing.joinToString("\n") { "  -${it.title}" }}
+  
+Done 
+${done.joinToString("\n") { "  -${it.title}" }}
+   
+  """.trimIndent()
+
+  val fileName = "relatorio_tasks_${System.currentTimeMillis()}.txt"
+  val file = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName)
+
+  file.writeText(string)
+  return fileName
 }
