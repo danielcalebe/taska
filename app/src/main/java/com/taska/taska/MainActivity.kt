@@ -67,7 +67,7 @@ class MainActivity : ComponentActivity() {
             }
 
 
-            NavHost(navController, "kanban") {
+            NavHost(navController, "home") {
               composable("home") {
                 Home(
                   cadastrar = { navController.navigate("cadastrar") },
